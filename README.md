@@ -1,5 +1,5 @@
 
-# Saathi
+# Cropdex
 
 An AI powered agriculture utility platform
 ## Features
@@ -24,13 +24,6 @@ There are 2 parts in this project
 
 In the models directory there are two folders 'recommender-models' & 'cnn'. Recommender-models has all the models related to crop recommendation system and cnn folder contains all the notebooks and models related to plant disease classification.
 
-#### Web
-
-```bash
-  python3 -m venv venv
-  cd Saathi/webapp
-  pip3 install -r requirements.txt
-  python3 setup.py
 ```
 ## Results
 

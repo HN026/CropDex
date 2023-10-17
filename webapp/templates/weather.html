@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}Weather based Recommendation{% endblock title %}
+
+{% block content %}
+
+<div class="row-sm p-sm-5">
+    <div class="col-sm-12 p-sm-5">
+        <form id="cityForm" onsubmit="getWeatherData(event)">
+            <label for="cityInput">Enter City Name:</label>
+            <input type="text" id="cityInput" name="cityInput">
+            <button type="submit">Get Weather Data</button>
+        </form>
+        <div id="weatherData" class="text-center mt-3"></div>
+        <div id="spinner" style="display: none;" class="text-center mt-3">
+            <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+        </div>
+        <div id="weatherIcon" class="text-center mt-3"></div>
+        <div id="cropList" class="text-center mt-3"></div>
+    </div>
+</div>
+
+<script>
+    function getWeatherData(event) {
+        console.log('getWeatherData() called');
+        event.preventDefault();
+        const city = document.getElementById('cityInput').value;
+        const apiKey = 'aadd3ccb0949457eae0121437231710';
+        const url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`;
+        const spinner = document.getElementById('spinner');
+        const weatherDataDiv = document.getElementById('weatherData');
+        const weatherIconDiv = document.getElementById('weatherIcon');
+        const cropListDiv = document.getElementById('cropList');
+
+        spinner.style.display = 'block';
+        weatherDataDiv.innerHTML = '';
+        weatherIconDiv.innerHTML = '';
+        cropListDiv.innerHTML = '';
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                const currentData = data.current;
+                spinner.style.display = 'none';
+                weatherDataDiv.innerHTML = `
+                    <p>Condition: ${currentData.condition.text}</p>
+                    <p>Temperature: ${currentData.temp_c}°C (${currentData.temp_f}°F)</p>
+                    <p>Humidity: ${currentData.humidity}%</p>
+                    <p>Wind Speed: ${currentData.wind_kph} kph (${currentData.wind_mph} mph) ${currentData.wind_dir}</p>
+                    <p>Pressure: ${currentData.pressure_mb} mb (${currentData.pressure_in} in)</p>
+                `;
+                weatherIconDiv.innerHTML = `<img src="https:${currentData.condition.icon}" alt="Weather Icon">`;    
+            })
+            .catch(error => {
+                spinner.style.display = 'none';
+                console.error('Error fetching weather data:', error);
+            });
+    }
+</script>
+
+{% endblock content %}

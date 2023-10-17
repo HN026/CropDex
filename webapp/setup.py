@@ -100,8 +100,15 @@ def cr():
         # print(res)
         return redirect(url_for('cropresult', res=res))
     return render_template('croprec.html')
+@app.route('/weatherbased/<res>')
+def weatherresult(res):
+    print(res)
+    corrected_result = res
+    return render_template('weatherresult.html', corrected_result=corrected_result)
 
-
+@app.route('/weatherbased', methods=['GET', 'POST'])
+def wr():
+    return render_template('weather.html')
 
 if __name__== "__main__":
     app.run(debug=True)

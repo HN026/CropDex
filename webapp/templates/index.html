@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block title %}Welcome{% endblock title %} 
+{% extends 'base.html' %} {% block title %}Cropdex{% endblock title %} 
 
 {% block content %}
 
@@ -7,10 +7,10 @@
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{{url_for('static', filename='images/sliders/first.jpg')}}" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
+                    <img src="{{url_for('static', filename='images/sliders/first.jpg')}}" class="d-block w-100" style="height: 600px !important; " alt="...">
+                    <div class="carousel-caption d-none d-md-block text-dark">
                         <h2>Welcome to Cropdex</h2>
-                        <p>A agriculture utility website to help farmers by providing harvesting solution using artificial intelligence.</p>
+                        <p>An innovative agricultural utility website designed to empower farmers by offering cutting-edge AI-driven harvesting solutions.</p>
                     </div>
                 </div>
             </div>

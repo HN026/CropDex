@@ -4,6 +4,9 @@ import os
 import tensorflow
 import numpy as np
 import pickle
+import openai
+openai.api_key = "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"
+
 
 app = Flask(__name__)
 
@@ -34,12 +37,24 @@ def aboutme():
 
 @app.route('/plantdisease/<res>')
 def plantresult(res):
-    print(res)
-    corrected_result = ""
-    for i in res:
-        if i!='_':
-            corrected_result = corrected_result+i
-    return render_template('plantdiseaseresult.html', corrected_result=corrected_result)
+    corrected_result = res.replace("_", "")  # Remove underscores
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {
+                "role": "system",
+                "content": "You will be provided with a plant disease, and your task is to tell the information about the disease, the potential fertilizers that can be used to cure it, the shelf life of the following crop, and ways to prevent it in the future.Give answer in paragraphs not points."
+            },
+            {
+                "role": "user",
+                "content": f"Plant Disease: {corrected_result}"
+            }
+        ],
+        temperature=0.8,
+        max_tokens=300,
+    )
+    result = response['choices'][0]['message']['content']
+    return render_template('plantdiseaseresult.html', corrected_result=corrected_result, result=result)
 
 @app.route('/plantdisease', methods=['GET', 'POST'])
 def plantdisease():

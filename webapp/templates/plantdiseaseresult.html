@@ -1,19 +1,19 @@
-{% extends 'base.html' %} {% block title %}Welcome{% endblock title %} 
+{% extends 'base.html' %}
+{% block title %}{% endblock title %}
 
 {% block content %}
-
-<div class="row-sm p-sm-5">
-    <div class="col-sm-12 p-sm-5">
-        <p class="text-center">
-            <h3 class="text-center">
-                Plant Disease Detection
-            </h3>
-            <p class="text-center">
-                The detected disease is - {{corrected_result}}
-            </p>
-        </p>
-    </div>  
+<div class="container p-5">
+    <h3 class="text-center">Plant Disease Detection</h3>
+    <div class="text-center">
+        <p class="lead">The detected disease is: {{ corrected_result }}</p>
+        <div class="result-paragraph">
+            <p class="text-muted bg-light p-3 rounded">{{ result }}</p>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <div class="text-center mt-4">
+        <a class="btn btn-warning" href="/plantdisease">Add New Image</a>
+    </div>
 </div>
-
-
 {% endblock content %}
